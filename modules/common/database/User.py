@@ -16,14 +16,13 @@ from modules.common.database.List import List
 class User:
     def __init__(self, message: types.Message):
         self.chat_id = message.chat.id
-        self.user_id = message.from_user.id
 
         set_if_not_exists(self.key, User.default())
 
     
     @property
     def key(self) -> str:
-        return f"data:{self.chat_id}:{self.user_id}"
+        return f"data:{self.chat_id}"
 
     @staticmethod
     def default() -> dict:
@@ -35,13 +34,13 @@ class User:
             'chosenbuilding': 0
         }
 
-    def update(self, **kwargs) -> bool:
+    def update(self, **values) -> bool:
         '''
         Updates value in database
         '''
 
         data: dict = get_if_exists(self.key)
-        data.update(kwargs)
+        data.update(values)
         return set_if_exists(self.key, data)
         
 
