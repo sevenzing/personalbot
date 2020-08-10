@@ -2,9 +2,10 @@ from aiogram import types
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 
-from modules.common.database.User import User
-from modules.common.database.List import List
 from modules.common.utils import parse_commad
+from modules.common.database import (
+    ListModel, UserModel
+)
 
 from misc import logger
 
@@ -26,8 +27,8 @@ async def add_to_list(message: types.Message, state: FSMContext):
     await state.finish()
     
 async def __add_to_list(message: types.Message, items: list):
-    user = User(message)
-    _list =  List(user)
+    user = UserModel(message)
+    _list =  ListModel(user)
 
     if _list.add(items):
         await message.answer(f"ok, I set {' '.join(items)}")

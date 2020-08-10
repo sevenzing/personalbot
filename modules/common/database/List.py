@@ -56,12 +56,19 @@ class List:
 
         return self.__update()
 
+    def clear(self) -> bool:
+        '''
+        Completely clear the list
+        '''
+        self.current_list = {}
+        return self.__update()
+
     def content(self) -> list:
         '''
         Returns list in such way sorted by date:
         [ ('<<item name>>', 1), ( ... ) ]
         '''
-        
+
         # item names, sorted by date
         sorted_names = sorted(
             self.current_list, 
