@@ -33,6 +33,6 @@ async def __add_to_list(message: types.Message, items: list):
 
     # TODO: message variables
     if _list.add(items):
-        await message.answer(f"ok, I set {' '.join(items)}")
+        await message.answer(f"Acknowledged")
     else:
         await message.answer(f"something went wrong")
