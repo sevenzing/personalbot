@@ -12,6 +12,8 @@ My personal telegram bot
     + callback on list ✔
     + update list after adding ✘
     + Nice response messages ✘
+    
+    ![](media/example_buylist.png)
 
 + Cleaning reminder ✘
     + /nextcleaning ✘
