@@ -20,6 +20,7 @@ async def cmd_add(message: types.Message):
     else:
         await Form.waiting_for_add.set()
         logger.debug('set state to waiting')
+        # TODO: message variables
         await message.answer('send me your list')
 
 async def add_to_list(message: types.Message, state: FSMContext):
@@ -30,6 +31,7 @@ async def __add_to_list(message: types.Message, items: list):
     user = UserModel(message)
     _list =  ListModel(user)
 
+    # TODO: message variables
     if _list.add(items):
         await message.answer(f"ok, I set {' '.join(items)}")
     else:
