@@ -16,7 +16,6 @@ from modules.common.database.List import List
 class User:
     def __init__(self, message: types.Message):
         self.chat_id = message.chat.id
-
         set_if_not_exists(self.key, User.default())
 
     

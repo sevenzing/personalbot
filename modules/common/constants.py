@@ -18,4 +18,4 @@ INLINE_COMMAND_CLEAR = 'clear'
 
 TEXT_DECREASE = '[Decrease]'
 TEXT_CLEAR = '[Clear]'
-TEXT_EXIT = '[Exit]'
+TEXT_EXIT = '[Close]'

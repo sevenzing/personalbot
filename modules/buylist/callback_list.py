@@ -11,7 +11,8 @@ async def answer_callback_handler(query: types.CallbackQuery):
     _list = ListModel(UserModel(message))
     
     logger.debug(f"Got inline query. Data: {query.data}")
-
+    
+    result = None
     if command == constants.INLINE_COMMAND_INCRESE:
         result = _list.change_amount(item_name, 1)
 
@@ -19,15 +20,19 @@ async def answer_callback_handler(query: types.CallbackQuery):
         result = _list.change_amount(item_name, -1)
 
     elif command == constants.INLINE_COMMAND_CLEAR:
-        result = _list.clear()
-
+        _list.clear()
+        await message.delete()
+        
     elif command == constants.INLINE_COMMAND_EXIT:
-        result = message.delete()
-    else:
-        result = None
+        await message.delete()
     
     if result:
         await message.edit_reply_markup(
             reply_markup=_list.generate_buttons_for_list()
         )
+        # TODO: Message variable
         await query.answer('Done')
+
+async def answer_empty_list(query: types.CallbackQuery):
+    # TODO: message variable
+    await query.answer('to add something to your list, write /add')

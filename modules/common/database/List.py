@@ -87,9 +87,22 @@ class List:
     def generate_buttons_for_list(self) -> types.InlineKeyboardMarkup:
         '''
         Generate InlineKeyboardMarkup for the list
+        If list is empry, returns empty button
         '''
         keyboard = types.InlineKeyboardMarkup(row_width=2)
         
+        if len(self.current_list) == 0:
+            keyboard.add(
+                types.InlineKeyboardButton(
+                    # TODO: Message variable
+                    text='Empty list',
+                    callback_data='None',
+                    )
+            )
+
+            return keyboard
+
+
         for item_name, amount in self.__content():
             name_button = types.InlineKeyboardButton(
                 text = f"{item_name}: [{amount}]",
