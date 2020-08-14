@@ -3,6 +3,7 @@ My personal telegram bot
 
 ## Modules
 ✔ - implemented
+
 ✘ - not yet
 
 + Convenient buy list ✘
