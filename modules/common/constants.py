@@ -10,6 +10,8 @@ redis = {
 
 }
 
+TIME_ZONE = 'Etc/GMT-3'
+
 MAX_ITEM_LENGTH = 20
 
 INLINE_COMMAND_INCRESE = 'increase'
@@ -21,4 +23,4 @@ TEXT_DECREASE = '[Decrease]'
 TEXT_CLEAR = '[Clear]'
 TEXT_EXIT = '[Close]'
 
-REMINDER_CHECKER_INTERVAL = 60 # sec
+REMINDER_CHECKER_INTERVAL = 3 # sec

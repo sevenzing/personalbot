@@ -4,6 +4,8 @@ from asyncio import AbstractEventLoop, sleep as async_sleep
 import logging
 
 from .checker import check_time
+from .setbuilding import cmd_setbuilding
+from .callback_setbuilding import answer_callback_setbuilding_handler
 from modules.common.constants import BOT_ADMIN, REMINDER_CHECKER_INTERVAL
 
 
@@ -20,3 +22,9 @@ def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
         interval=REMINDER_CHECKER_INTERVAL,
         dp=dp
         ))
+
+    dp.register_message_handler(cmd_setbuilding, Command('setbuilding'))
+    dp.register_callback_query_handler(
+        answer_callback_setbuilding_handler,
+        lambda query: query.data.startswith('setbuilding')
+        )
