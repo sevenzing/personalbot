@@ -5,7 +5,7 @@ from .list import cmd_list
 from .add import cmd_add, add_to_list, Form
 from .callback_list import answer_callback_handler, answer_empty_list
 
-def setup(dp: Dispatcher):
+def setup(dp: Dispatcher, *args, **kwargs):
     dp.register_message_handler(cmd_list, Command('list'), state='*')
     dp.register_message_handler(cmd_add, Command('add'))
     dp.register_message_handler(add_to_list, state=Form.waiting_for_add)
