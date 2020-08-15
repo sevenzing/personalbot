@@ -4,7 +4,7 @@ import logging
 
 from modules.common import constants
 from modules.buylist import messages as buylist_messages
-
+from modules.common.utils import get_now
 
 
 class List:
@@ -21,7 +21,7 @@ class List:
     def default():
         return {'Sample': {
             'amount': 0,
-            'date': str(datetime.now())
+            'date': get_now().__str__()
         }}
 
     def __init__(self, user, **kwargs):
@@ -89,7 +89,7 @@ class List:
     def generate_buttons_for_list(self) -> types.InlineKeyboardMarkup:
         '''
         Generate InlineKeyboardMarkup for the list
-        If list is empry, returns empty button
+        If list is empty, returns empty button
         '''
         keyboard = types.InlineKeyboardMarkup(row_width=2)
         
