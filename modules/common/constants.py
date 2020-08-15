@@ -2,6 +2,7 @@ import os
 
 BOT_TOKEN = os.getenv('BOT_TOKEN', '')
 
+BOT_ADMIN = os.getenv('BOT_ADMIN', '')
 
 redis = {
     'host': 'redis',
@@ -19,3 +20,5 @@ INLINE_COMMAND_CLEAR = 'clear'
 TEXT_DECREASE = '[Decrease]'
 TEXT_CLEAR = '[Clear]'
 TEXT_EXIT = '[Close]'
+
+REMINDER_CHECKER_INTERVAL = 60 # sec
