@@ -1,3 +1,5 @@
+ON_CMD_LIST = 'Your list:'
+
 ADDED_TO_LIST = 'Acknowledged. Look at your list: /list'
 
 SOMETHING_WENT_WRONG = 'Something went wrong. Please, retry the same question in several minutes'
