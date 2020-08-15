@@ -1,5 +1,6 @@
 from aiogram import types
 
+from modules.buylist import messages
 from modules.common import constants
 from modules.common.database import ListModel, UserModel
 
@@ -30,9 +31,7 @@ async def answer_callback_handler(query: types.CallbackQuery):
         await message.edit_reply_markup(
             reply_markup=_list.generate_buttons_for_list()
         )
-        # TODO: Message variable
-        await query.answer('Done')
+        await query.answer(messages.QUERY_DONE)
 
 async def answer_empty_list(query: types.CallbackQuery):
-    # TODO: message variable
-    await query.answer('to add something to your list, write /add')
+    await query.answer(messages.QUERY_EMPTY_LIST)
