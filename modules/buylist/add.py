@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 
+from modules.buylist import messages
 from modules.common.utils import parse_commad
 from modules.common.database import (
     ListModel, UserModel
@@ -14,25 +15,30 @@ class Form(StatesGroup):
     waiting_for_add = State()
 
 async def cmd_add(message: types.Message):
-    command, args = parse_commad(message.text)
+    _, args = parse_commad(message.text)
     if args:
         await __add_to_list(message, items=args)
     else:
         await Form.waiting_for_add.set()
         logger.debug('set state to waiting')
-        # TODO: message variables
-        await message.answer('send me your list')
+        await message.answer(messages.ON_CMD_ADD)
 
 async def add_to_list(message: types.Message, state: FSMContext):
-    await __add_to_list(message, message.text.split('\n'))
+    '''
+    Command on `waiting_for_add` states
+    '''
+    _, args = parse_commad('/add ' + message.text)
+    await __add_to_list(message, items=args)
     await state.finish()
     
 async def __add_to_list(message: types.Message, items: list):
+    '''
+    Add all item from `items` to user's list
+    '''
     user = UserModel(message)
     _list =  ListModel(user)
 
-    # TODO: message variables
     if _list.add(items):
-        await message.answer(f"Acknowledged")
+        await message.answer(messages.ADDED_TO_LIST)
     else:
-        await message.answer(f"something went wrong")
+        await message.answer(messages.SOMETHING_WENT_WRONG)
