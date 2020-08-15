@@ -8,7 +8,7 @@ from modules.common.database import (
     ListModel, UserModel
 )
 
-from misc import logger
+import logging
 
 
 class Form(StatesGroup):
@@ -20,7 +20,7 @@ async def cmd_add(message: types.Message):
         await __add_to_list(message, items=args)
     else:
         await Form.waiting_for_add.set()
-        logger.debug('set state to waiting')
+        logging.debug('set state to waiting')
         await message.answer(messages.ON_CMD_ADD)
 
 async def add_to_list(message: types.Message, state: FSMContext):

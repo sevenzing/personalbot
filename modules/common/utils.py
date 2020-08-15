@@ -1,8 +1,5 @@
 import logging
 
-def get_logger(name='bot'):
-    return logging.getLogger(name)
-
 #%%
 def parse_commad(text: str):
     '''

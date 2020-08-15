@@ -1,9 +1,11 @@
 from datetime import datetime
 from aiogram import types
+import logging
 
-from misc import logger
 from modules.common import constants
 from modules.buylist import messages as buylist_messages
+
+
 
 class List:
     '''
@@ -45,7 +47,7 @@ class List:
         Returns list in such way sorted by date:
         [ ('<<item name>>', 1), ( ... ) ]
         '''
-        logger.debug(f"{self.__get_list()} -- {self.current_list}")
+        logging.debug(f"{self.__get_list()} -- {self.current_list}")
         # item names, sorted by date
         sorted_names = sorted(
             self.current_list, 
@@ -55,7 +57,7 @@ class List:
             (name, self.current_list[name]['amount']) 
                 for name in sorted_names
                 ]
-        logger.debug(f"generated list: {result_list}")
+        logging.debug(f"generated list: {result_list}")
         return result_list
 
     def add(self, items: list) -> bool:
@@ -132,12 +134,12 @@ class List:
         
         Returns bool as result of work
         '''
-        logger.debug(str(self.current_list))
+        logging.debug(str(self.current_list))
 
         if item_name in self.current_list:
             self.current_list[item_name]['amount'] += number
 
-            logger.debug(f"changed amount for {item_name} to {self.current_list[item_name]['amount']}")
+            logging.debug(f"changed amount for {item_name} to {self.current_list[item_name]['amount']}")
 
             if self.current_list[item_name]['amount'] <= 0:
                 self.current_list.pop(item_name)

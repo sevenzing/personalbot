@@ -1,8 +1,8 @@
 from redis import Redis
 from json import dumps, loads
+import logging
 
 from . import database
-from misc import logger
 
 def set_if_not_exists(key, value) -> bool:
     '''
@@ -31,7 +31,7 @@ def __set(key, value, **kwargs) -> bool:
         value = dumps(value)
 
     if database.set(key, value, **kwargs):
-        logger.debug(f'Set key {key} to value {value}')
+        logging.debug(f'Set key {key} to value {value}')
         return True
     else:
         return False

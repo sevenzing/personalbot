@@ -9,7 +9,6 @@ from modules.common.database import (
 from modules.common import constants
 from modules.buylist import messages
 
-from misc import logger
 
 async def cmd_list(message: types.Message, state: FSMContext, *args, **kwargs):
     user = UserModel(message)

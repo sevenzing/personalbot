@@ -4,14 +4,14 @@ from modules.buylist import messages
 from modules.common import constants
 from modules.common.database import ListModel, UserModel
 
-from misc import logger
+import logging
 
 async def answer_callback_handler(query: types.CallbackQuery):
     message = query.message
     _, command, item_name = query.data.split(':')
     _list = ListModel(UserModel(message))
     
-    logger.debug(f"Got inline query. Data: {query.data}")
+    logging.debug(f"Got inline query. Data: {query.data}")
     
     result = None
     if command == constants.INLINE_COMMAND_INCRESE:

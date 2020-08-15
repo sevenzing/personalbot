@@ -1,7 +1,6 @@
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aiogram import types
 
-from misc import logger
 
 from . import database
 from modules.common.database.utils import (
