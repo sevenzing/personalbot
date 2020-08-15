@@ -1,5 +1,6 @@
 from redis import Redis
 from json import dumps, loads
+from typing import List, Dict
 import logging
 
 from . import database
@@ -36,7 +37,7 @@ def __set(key, value, **kwargs) -> bool:
     else:
         return False
 
-def get_if_exists(key) -> dict:
+def get_if_exists(key) -> Dict:
     '''
     Returns dict for the key in redis database
     '''
@@ -46,3 +47,26 @@ def get_if_exists(key) -> dict:
         return loads(value.decode()) 
     else:
         return None
+
+def find_suitable(key_pattern, attributes) -> List[str]:
+    '''
+    Search for a item in the database 
+    that matches the given attributes
+    '''
+    keys = list(map(
+        bytes.decode, 
+        database.keys(pattern=key_pattern)
+        ))
+    suitable_keys = []
+    for key in keys:
+        _dict = get_if_exists(key)
+        suitable = True
+        for attr in attributes:
+            if _dict.get(attr) != attributes[attr]:
+                suitable = False
+                break
+        if suitable:
+            suitable_keys.append(key)
+    logging.debug(f"For attrs: {attributes} found {len(suitable_keys)} item(s)")
+    return suitable_keys
+
