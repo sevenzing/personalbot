@@ -3,7 +3,7 @@ from aiogram import types
 
 from misc import logger
 from modules.common import constants
-
+from modules.buylist import messages as buylist_messages
 
 class List:
     '''
@@ -94,8 +94,7 @@ class List:
         if len(self.current_list) == 0:
             keyboard.add(
                 types.InlineKeyboardButton(
-                    # TODO: Message variable
-                    text='Empty list',
+                    text=buylist_messages.EMPTY_LIST_BUTTON,
                     callback_data='None',
                     )
             )

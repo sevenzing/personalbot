@@ -9,3 +9,5 @@ ON_CMD_ADD = 'Send me a list separated by either commas or new lines'
 QUERY_DONE = 'Done'
 
 QUERY_EMPTY_LIST = 'To add something to your list, write /add'
+
+EMPTY_LIST_BUTTON = 'Empty list'

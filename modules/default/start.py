@@ -1,10 +1,10 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
+from modules.default import messages
 
 async def cmd_start(message: types.Message):
     """
     Conversation's entry point
     """
-    # TODO: message variable
-    await message.answer("Hi there! /list for your buy list")
+    await message.answer(messages.ON_CMD_START)
