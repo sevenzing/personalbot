@@ -1,4 +1,5 @@
-ON_CMD_LIST = 'Your list:'
+# spaces to support the largest list buttons
+ON_CMD_LIST = '`                                  Your list:`'
 
 ADDED_TO_LIST = 'Acknowledged. Look at your list: /list'
 
@@ -10,4 +11,8 @@ QUERY_DONE = 'Done'
 
 QUERY_EMPTY_LIST = 'To add something to your list, write /add'
 
-EMPTY_LIST_BUTTON = 'Empty list'
+BUTTON_EMPTY_LIST = 'Empty list'
+
+BUTTON_DECREASE = '[Decrease]'
+BUTTON_CLEAR = '[Clear]'
+BUTTON_EXIT = '[Close]'

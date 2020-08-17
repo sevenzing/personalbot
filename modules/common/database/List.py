@@ -96,7 +96,7 @@ class List:
         if len(self.current_list) == 0:
             keyboard.add(
                 types.InlineKeyboardButton(
-                    text=buylist_messages.EMPTY_LIST_BUTTON,
+                    text=buylist_messages.BUTTON_EMPTY_LIST,
                     callback_data='None',
                     )
             )
@@ -110,17 +110,17 @@ class List:
                 callback_data=f"change_menu:{constants.INLINE_COMMAND_INCRESE}:{item_name}")
 
             decr_button = types.InlineKeyboardButton(
-                text = constants.TEXT_DECREASE,
+                text = buylist_messages.BUTTON_DECREASE,
                 callback_data=f"change_menu:{constants.INLINE_COMMAND_DECREASE}:{item_name}")
             
             keyboard.add(name_button, decr_button)
 
         close_button = types.InlineKeyboardButton(
-                text = constants.TEXT_EXIT,
+                text = buylist_messages.BUTTON_EXIT,
                 callback_data=f"change_menu:{constants.INLINE_COMMAND_EXIT}:")
 
         clearlist_button = types.InlineKeyboardButton(
-                text = constants.TEXT_CLEAR,
+                text = buylist_messages.BUTTON_CLEAR,
                 callback_data=f"change_menu:{constants.INLINE_COMMAND_CLEAR}:")
         
         keyboard.add(close_button, clearlist_button)
