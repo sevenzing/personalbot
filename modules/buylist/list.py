@@ -16,7 +16,8 @@ async def cmd_list(message: types.Message, state: FSMContext, *args, **kwargs):
 
     await message.answer(
         messages.ON_CMD_LIST,
-        reply_markup=_list.generate_buttons_for_list()
+        reply_markup=_list.generate_buttons_for_list(),
+        parse_mode='Markdown',
     )
 
 
