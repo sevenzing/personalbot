@@ -32,7 +32,7 @@ class List:
         '''
         Returns current list from database
         '''
-        return self.user.get('list')
+        return self.user['list']
 
     def __update(self) -> bool:
         '''
@@ -94,7 +94,7 @@ class List:
         If list is empty, returns empty button
         '''
         keyboard = types.InlineKeyboardMarkup(row_width=2)
-        
+        logging.debug(f"Generate buttons for list with {len(self.current_list)} items")
         if len(self.current_list) == 0:
             keyboard.add(
                 types.InlineKeyboardButton(

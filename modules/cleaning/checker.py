@@ -31,9 +31,9 @@ async def check_time(dp: Dispatcher):
         checknotice=True, 
         chosenbuilding=current_building
         ):
-        lastnotice = get_date_from_string(user.get('lastnotice'))
+        lastnotice = get_date_from_string(user['lastnotice'])
         logging.debug(f"last notice was at {lastnotice}. Current hour: {now.hour}")
-        if now >= lastnotice and now.hour >= user.get('noticehour'):
+        if now >= lastnotice and now.hour >= user['noticehour']:
             logging.debug(f"Make notice for {user.chat_id}")
             
             # TODO: Message variable

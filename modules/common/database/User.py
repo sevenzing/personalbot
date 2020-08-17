@@ -57,6 +57,8 @@ class User:
         return set_if_exists(self.key, data)
         
 
+    def __getitem__(self, key):
+        return self.get(key)
     
     def get(self, key):
         return get_if_exists(self.key).get(key)
