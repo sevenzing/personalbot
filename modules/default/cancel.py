@@ -12,7 +12,7 @@ async def cmd_cancel(message: types.Message, state: FSMContext):
     if current_state is None:
         return
 
-    logging.info('Cancelling state %r', current_state)
+    logging.info(f"Cancelling state {current_state} for chat {message.chat.id}")
 
     await state.finish()
 

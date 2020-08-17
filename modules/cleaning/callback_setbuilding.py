@@ -10,6 +10,8 @@ import logging
 async def answer_callback_setbuilding_handler(query: types.CallbackQuery):
     _, building = query.data.split(':')
     building = int(building)
+    
+    logging.debug(f"Got query to setbuilding to {building}")
 
     user = UserModel(query.message)
     user.update(chosenbuilding=building)

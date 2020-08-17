@@ -16,7 +16,7 @@ async def forever(function, interval, *args, **kwargs):
         await async_sleep(interval)
 
 def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
-    logging.debug('Initialize cleaning')
+    logging.debug('Initialize cleaning module')
     loop.create_task(forever(
         function=check_time, 
         interval=REMINDER_CHECKER_INTERVAL,

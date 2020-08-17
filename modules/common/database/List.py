@@ -65,9 +65,11 @@ class List:
         Add all items to list. 
         If it already exists, increment amount
         '''
+        logging.debug(f"Adding {items} to buylist for chat {self.user.chat_id}")
         for item in items:
 
             if len(item) > constants.MAX_ITEM_LENGTH:
+                logging.debug(f"Item {item} has length {len(item)} is more than {constants.MAX_ITEM_LENGTH}")
                 return False
 
             self.current_list.setdefault(item, 
