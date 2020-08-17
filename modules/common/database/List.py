@@ -21,7 +21,7 @@ class List:
     def default():
         return {'Sample': {
             'amount': 0,
-            'date': get_now().__str__()
+            'date': get_now().strftime('%Y %m %d %H %M %S')
         }}
 
     def __init__(self, user, **kwargs):
