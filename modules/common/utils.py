@@ -17,6 +17,10 @@ def get_date_from_string(string: str) -> datetime.datetime:
         f"pytz.timezone('{constants.TIME_ZONE}')"
         ))
 
+def get_next_day(date: datetime):
+    n = date + datetime.timedelta(days=1)
+    return datetime.datetime(n.year, n.month, n.day, tzinfo=pytz.timezone(constants.TIME_ZONE))
+
 def ordinal(n: int) -> str:
     """
     Returns the ordinal number of the number

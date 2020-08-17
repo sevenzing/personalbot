@@ -5,13 +5,13 @@ import datetime
 
 from modules.common.database import UserModel
 from modules.common.database.User import find_users
-from modules.common.utils import get_now, get_date_from_string
+from modules.common.utils import get_now, get_date_from_string, get_next_day
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
     Returns number of current building 
     '''
-    # TODO: remove this comment
+    # TODO: remove this line
     return 1
 
     _, week_number, day_number = date.isocalendar()
@@ -23,8 +23,6 @@ def get_current_building(date: datetime.datetime) -> int:
         return 4 if not (week_number % 2) else 3
 
 async def check_time(dp: Dispatcher):
-    # TODO: check time
-
     now = get_now()
     _, week_number, day_number = now.isocalendar()
     current_building = get_current_building(now)
@@ -34,12 +32,14 @@ async def check_time(dp: Dispatcher):
         chosenbuilding=current_building
         ):
         lastnotice = get_date_from_string(user.get('lastnotice'))
-        logging.debug(f"last notice was at {lastnotice}")
+        logging.debug(f"last notice was at {lastnotice}. Current hour: {now.hour}")
         if now >= lastnotice and now.hour >= user.get('noticehour'):
             logging.debug(f"Make notice for {user.chat_id}")
-            # TODO: make notice
             
-            pass
+            # TODO: Message variable
+            await dp.bot.send_message(user.chat_id, 'Notice!')
+            user.update(lastnotice=get_next_day(now))
+            logging.debug(f"Made notice for {user.chat_id}")
         else:
             logging.debug(f"Skip notice for {user.chat_id}")
 

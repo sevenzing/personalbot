@@ -4,7 +4,7 @@ from aiogram import types
 from typing import List
 import logging
 from . import database
-from modules.common.utils import get_now
+from modules.common.utils import get_now, get_next_day
 from modules.common.database.utils import (
     set_if_exists,
     set_if_not_exists,
@@ -34,7 +34,7 @@ class User:
         return {
             'list': ListModel.default(),
             'username': '',
-            'lastnotice': get_now().__repr__(),
+            'lastnotice': get_next_day(get_now()).__repr__(),
             'checknotice': True,
             'chosenbuilding': 0,
             'noticehour': 8,
@@ -44,6 +44,13 @@ class User:
         '''
         Updates value in database
         '''
+        for key in values:
+            if not (
+                isinstance(values[key], int) or 
+                isinstance(values[key], str) or 
+                isinstance(values[key], dict)):
+                
+                values[key] = values[key].__repr__()
 
         data: dict = get_if_exists(self.key)
         data.update(values)
