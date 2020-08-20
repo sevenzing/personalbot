@@ -22,7 +22,7 @@ My personal telegram bot
     + Nice response messages ✘
 
 ## How to start
-1. Setup .evn file:
+1. Setup `.evn` file:
 ```
 BOT_TOKEN=111111111:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 ```
