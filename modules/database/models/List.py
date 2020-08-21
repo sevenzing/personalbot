@@ -5,6 +5,7 @@ from modules.common.utils import get_now
 from modules.database import mongo_instance
 from modules.common import constants
 from modules.buylist import messages as buylist_messages
+from misc import dp
 
 import logging
 
@@ -48,25 +49,6 @@ class ListModel(Document):
         self._items = self._items.copy()
         return self.commit()
 
-    def add(self, items: list) -> bool:
-        '''
-        Add all items to list. 
-        If it already exists, increment amount
-        '''
-        logging.debug(f"Adding {items} to buylist for chat {self.chat_id}")
-        for item in items:
-            if len(item) > constants.MAX_ITEM_LENGTH:
-                logging.debug(f"Item {item} has length {len(item)} is more than {constants.MAX_ITEM_LENGTH}")
-                return False
-
-            self._items.setdefault(item, 
-                default_list()['Sample']
-                )
-
-        for item in items:
-            self._items[item]['amount'] += 1
-
-        return self.__update()
     
     def clear(self) -> bool:
         '''
@@ -116,27 +98,47 @@ class ListModel(Document):
 
         return keyboard
 
+    def add(self, items: list) -> bool:
+        '''
+        Add all items to list. 
+        If it already exists, increment amount
+        '''
+        logging.debug(f"Got {len(items)} items")
+        if len(items) > constants.MAX_ITEMS_TO_ADD_AT_TIME:
+            return False
+
+        logging.debug(f"Adding {items} to buylist for chat {self.chat_id}")
+        for item in items:
+            if len(item) > constants.MAX_ITEM_LENGTH:
+                logging.debug(f"Item {item} has length {len(item)} is more than {constants.MAX_ITEM_LENGTH}")
+                return False
+
+            if not self.change_amount(item, +1):
+                return False
+
+        return True
+
     def change_amount(self, item_name: str, number: int) -> bool:
-        logging.debug('called change_amount function')
         '''
         Set `amount` = `amount` + `number`
         If new amount less than one, then delete it
+        If there is no item_name, create one with amount == number
         
         Returns bool as result of work
         '''
         logging.debug(f"change item {item_name} for list: {self._items}")
-        if item_name in self._items:
-            self._items[item_name]['amount'] += number
-
-            logging.debug(f"changed amount for {item_name} to {self._items[item_name]['amount']}")
-
-            if self._items[item_name]['amount'] <= 0:
-                self._items.pop(item_name)
-
-            return self.__update()
         
-        else:
-            return False
+        self._items.setdefault(item_name, 
+                default_list()['Sample']
+                )
+        self._items[item_name]['amount'] += number
+
+        logging.debug(f"changed amount for {item_name} to {self._items[item_name]['amount']}")
+
+        if self._items[item_name]['amount'] <= 0:
+            self._items.pop(item_name)
+
+        result = self.__update()
 
 
 def create_list(chat_id):
