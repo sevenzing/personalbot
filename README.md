@@ -9,8 +9,8 @@ My personal telegram bot
 + Convenient buy list ✘
     + /add ✔
     + /list ✔
-    + callback on list ✔
-    + update list after adding ✘
+    + Callback on list ✔
+    + Update previous 5 lists after changing or adding ✔
     + Nice response messages ✘
     
     ![](media/example_buylist.png)
