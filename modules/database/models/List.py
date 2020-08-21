@@ -1,5 +1,6 @@
 from umongo import Document, fields, validate
 from aiogram import types
+from aiogram.utils.exceptions import MessageToEditNotFound
 
 from modules.common.utils import get_now
 from modules.database import mongo_instance
@@ -15,7 +16,7 @@ logging.debug('initialize list model')
 def default_list():
     return {'Sample': {
         'amount': 0,
-        'date': get_now()
+        'date': get_now().strftime('%Y %m %d %H %M %S')
     }}
 
 @mongo_instance.register
@@ -45,17 +46,19 @@ class ListModel(Document):
         logging.debug(f"generated list: {result_list}")
         return result_list
 
-    def __update(self):
+    def _update(self):
         self._items = self._items.copy()
         return self.commit()
 
     
-    def clear(self) -> bool:
+    async def clear(self) -> bool:
         '''
         Completely clear the list
         '''
         self._items = {}
-        return self.__update()
+        result = self._update()
+        await self.update_all_list_messages()
+        return result
 
     def generate_buttons_for_list(self) -> types.InlineKeyboardMarkup:
         '''
@@ -98,7 +101,7 @@ class ListModel(Document):
 
         return keyboard
 
-    def add(self, items: list) -> bool:
+    async def add(self, items: list) -> bool:
         '''
         Add all items to list. 
         If it already exists, increment amount
@@ -113,12 +116,14 @@ class ListModel(Document):
                 logging.debug(f"Item {item} has length {len(item)} is more than {constants.MAX_ITEM_LENGTH}")
                 return False
 
-            if not self.change_amount(item, +1):
+            result = await self.change_amount(item, +1, update_all_lists=False)
+            if not result:
                 return False
-
+        
+        await self.update_all_list_messages()
         return True
 
-    def change_amount(self, item_name: str, number: int) -> bool:
+    async def change_amount(self, item_name: str, number: int, update_all_lists=True) -> bool:
         '''
         Set `amount` = `amount` + `number`
         If new amount less than one, then delete it
@@ -138,8 +143,25 @@ class ListModel(Document):
         if self._items[item_name]['amount'] <= 0:
             self._items.pop(item_name)
 
-        result = self.__update()
-
+        result = self._update()
+        if update_all_lists:
+            await self.update_all_list_messages()
+        
+        return result
+        
+    async def update_all_list_messages(self):
+        buttons = self.generate_buttons_for_list()
+        logging.debug(f"Update all messages for chat {self.chat_id}")
+        for message_id in self.messages:
+            logging.debug(f"Edit message {message_id}")
+            try:
+                await dp.bot.edit_message_reply_markup(
+                    self.chat_id, 
+                    message_id, 
+                    reply_markup=buttons
+                )
+            except MessageToEditNotFound:
+                pass
 
 def create_list(chat_id):
     '''

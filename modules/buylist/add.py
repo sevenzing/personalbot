@@ -36,7 +36,7 @@ async def __add_to_list(message: types.Message, items: list):
     user = create_user_if_not_exists(message.chat.id)
     _list =  user.get_buy_list()
 
-    if _list.add(items):
+    if await _list.add(items):
         await message.answer(messages.ADDED_TO_LIST)
     else:
         await message.answer(messages.SOMETHING_WENT_WRONG)

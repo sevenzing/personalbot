@@ -1,4 +1,5 @@
 from aiogram import types
+from aiogram.utils.exceptions import MessageNotModified
 import logging
 
 from modules.buylist import messages
@@ -15,22 +16,25 @@ async def answer_callback_handler(query: types.CallbackQuery):
     
     result = None
     if command == constants.INLINE_COMMAND_INCRESE:
-        result = _list.change_amount(item_name, 1)
+        result = await _list.change_amount(item_name, 1)
 
     elif command == constants.INLINE_COMMAND_DECREASE:
-        result = _list.change_amount(item_name, -1)
+        result = await _list.change_amount(item_name, -1)
 
     elif command == constants.INLINE_COMMAND_CLEAR:
-        _list.clear()
+        await _list.clear()
         await message.delete()
         
     elif command == constants.INLINE_COMMAND_EXIT:
         await message.delete()
     
     if result:
-        await message.edit_reply_markup(
-            reply_markup=_list.generate_buttons_for_list()
-        )
+        try:
+            await message.edit_reply_markup(
+                reply_markup=_list.generate_buttons_for_list()
+            )
+        except MessageNotModified:
+            logging.debug('Message wasnt modified. Skip it')
         await query.answer(messages.QUERY_DONE)
 
 async def answer_empty_list(query: types.CallbackQuery):
