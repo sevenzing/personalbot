@@ -10,6 +10,10 @@ redis = {
 
 }
 
+mongo = {
+    'host': 'mongodb://root:password@mongo:27017/'
+}
+
 TIME_ZONE = 'Etc/GMT-3'
 
 MAX_ITEM_LENGTH = 20
@@ -19,4 +23,4 @@ INLINE_COMMAND_DECREASE = 'decrese'
 INLINE_COMMAND_EXIT = 'exit'
 INLINE_COMMAND_CLEAR = 'clear'
 
-REMINDER_CHECKER_INTERVAL = 3 # sec
+REMINDER_CHECKER_INTERVAL = 60 # sec
