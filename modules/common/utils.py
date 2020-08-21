@@ -11,11 +11,8 @@ def get_now() -> datetime.datetime:
         pytz.timezone(constants.TIME_ZONE)
         )
 
-def get_date_from_string(string: str) -> datetime.datetime:
-    return eval(string.replace(
-        f"<StaticTzInfo '{constants.TIME_ZONE}'>", 
-        f"pytz.timezone('{constants.TIME_ZONE}')"
-        ))
+def convert_date_to_current_timezone(date):
+    return date.astimezone(pytz.timezone(constants.TIME_ZONE))
 
 def get_next_day(date: datetime):
     n = date + datetime.timedelta(days=1)

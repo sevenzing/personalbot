@@ -3,9 +3,8 @@ from aiogram import Dispatcher
 import logging
 import datetime
 
-from modules.common.database import UserModel
-from modules.common.database.User import find_users
-from modules.common.utils import get_now, get_date_from_string, get_next_day
+from modules.database.models import UserModel
+from modules.common.utils import get_now, convert_date_to_current_timezone, get_next_day
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
@@ -26,13 +25,13 @@ async def check_time(dp: Dispatcher):
     now = get_now()
     _, week_number, day_number = now.isocalendar()
     current_building = get_current_building(now)
-
-    for user in find_users(
-        checknotice=True, 
-        chosenbuilding=current_building
-        ):
-        lastnotice = get_date_from_string(user['lastnotice'])
-        logging.debug(f"last notice was at {lastnotice}. Current hour: {now.hour}")
+    for user in UserModel.find({
+        'checknotice': True, 
+        'chosenbuilding': current_building
+        }):
+        lastnotice = user.lastnotice
+        lastnotice = convert_date_to_current_timezone(lastnotice)
+        logging.debug(f"last notice was at {lastnotice} ({lastnotice.tzname()}). Current hour: {now.hour}")
         if now >= lastnotice and now.hour >= user['noticehour']:
             logging.debug(f"Make notice for {user.chat_id}")
             
