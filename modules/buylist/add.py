@@ -4,8 +4,7 @@ from aiogram.dispatcher import FSMContext
 
 from modules.buylist import messages
 from modules.common.utils import parse_commad
-from modules.database.models.User import User, get_user
-from modules.database.models.List import List
+from modules.database.models import UserModel, create_user_if_not_exists
 
 import logging
 
@@ -34,7 +33,7 @@ async def __add_to_list(message: types.Message, items: list):
     '''
     Add all item from `items` to user's list
     '''
-    user = get_user(message.chat.id)
+    user = create_user_if_not_exists(message.chat.id)
     _list =  user.get_buy_list()
 
     if _list.add(items):

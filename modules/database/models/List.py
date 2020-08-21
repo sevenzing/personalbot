@@ -18,7 +18,7 @@ def default_list():
     }}
 
 @mongo_instance.register
-class List(Document):
+class ListModel(Document):
     chat_id = fields.IntField()
     _items = fields.DictField(values=fields.DictField, default=default_list())
     messages = fields.ListField(fields.IntField(), default=[])
@@ -140,7 +140,10 @@ class List(Document):
 
 
 def create_list(chat_id):
-    _list = List(chat_id=chat_id)
+    '''
+    Creates new unattached list
+    '''
+    _list = ListModel(chat_id=chat_id)
     _list.required_validate()
     _list.commit()
     return _list

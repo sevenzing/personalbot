@@ -1,14 +1,16 @@
+from typing import Union
+from pymongo.results import UpdateResult, InsertOneResult 
 from umongo import Document, fields, validate
 
 from modules.common.utils import get_now
 from modules.database import mongo_instance
 from marshmallow.exceptions import ValidationError
     
-from modules.database.models.List import create_list, List
+from modules.database.models import ListModel, create_list
 
 @mongo_instance.register
-class User(Document):
-    buylist = fields.ReferenceField(List, default=None)
+class UserModel(Document):
+    buylist = fields.ReferenceField(ListModel, default=None)
     chat_id = fields.IntField(required=True, unique=True)
     username = fields.StrField()
     lastnotice = fields.DateTimeField(default=get_now())
@@ -20,12 +22,12 @@ class User(Document):
         collection_name = 'user'
 
 
-    def update(self, **attrs) -> None:
+    def update(self, **attrs) -> Union[UpdateResult, InsertOneResult]:
         for attr in attrs:
             self[attr] = attrs[attr]
-        self.commit()
+        return self.commit()
 
-    def get_buy_list(self) -> List:
+    def get_buy_list(self) -> ListModel:
         try:
             return self.buylist.fetch()
         except ValidationError:
@@ -33,29 +35,19 @@ class User(Document):
             self.update(buylist=_list)
             return _list
 
-def get_user(chat_id, **kwargs) -> User:
-    '''
-    Return User with the following chat_id
-    '''
-    user = create_if_not_exists(chat_id=chat_id)
-    user.update(**kwargs)
-    return user
 
-
-
-
-def __create_user(chat_id) -> User:
+def __create_user(chat_id) -> UserModel:
     '''
     Create User with default parameters
     '''
-    user = User(chat_id=chat_id)
+    user = UserModel(chat_id=chat_id)
     _list = create_list(chat_id)
     user.update(buylist=_list)
 
     user.required_validate()
     return user
 
-def create_if_not_exists(chat_id) -> User:
+def create_user_if_not_exists(chat_id) -> UserModel:
     '''
     Return User with chat_id, if not found, create one
     '''
@@ -64,8 +56,8 @@ def create_if_not_exists(chat_id) -> User:
         user = __create_user(chat_id)
     return user
 
-def find_user(dct: dict) -> User:
+def find_user(dct: dict) -> UserModel:
     '''
     Find user
     '''
-    return User.find_one(dct)
+    return UserModel.find_one(dct)

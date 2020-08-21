@@ -3,10 +3,6 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.dispatcher import FSMContext
 import logging
 
-
-from modules.common.database import (
-    ListModel, UserModel
-)
 from modules.common import constants
 from modules.common.utils import ordinal
 from modules.cleaning import messages
