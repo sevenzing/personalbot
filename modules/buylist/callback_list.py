@@ -8,6 +8,9 @@ from modules.database.models import create_user_if_not_exists
 
 
 async def answer_callback_handler(query: types.CallbackQuery):
+    '''
+    Answer on query of the list, execute the necessary command
+    '''
     message = query.message
     _, command, item_name = query.data.split(':')
     user = create_user_if_not_exists(message.chat.id)

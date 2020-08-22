@@ -8,6 +8,9 @@ from modules.common.utils import ordinal
 from modules.cleaning import messages
 
 def generate_choose_day_button() -> InlineKeyboardMarkup:
+    '''
+    Return buttons for choosing building message
+    '''
     keyboard = InlineKeyboardMarkup(row_width=2)
     for number in range(1, 4, 2):
         keyboard.add(
