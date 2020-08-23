@@ -8,7 +8,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
-    Returns number of current building 
+    Return number of current building 
     '''
 
     _, week_number, day_number = date.isocalendar()
@@ -39,15 +39,24 @@ def generate_choose_day_button() -> InlineKeyboardMarkup:
     return keyboard
 
 def get_next_cleaning_day(building_number: int) -> datetime.datetime:
+    '''
+    Return next cleaning date for the given building
+    '''
     current_date = get_now()
     while get_current_building(current_date) != building_number:
          current_date = get_next_day(current_date)
     return current_date
 
 def days_left(date: datetime.datetime):
-    return (date - get_now()).days
+    '''
+    Return how many days left before the date
+    '''
+    return (date - get_now()).days + 1
 
 def month_name(date: datetime.datetime):
+    '''
+    Return month of the date
+    '''
     return date.strftime("%B")
 
 def get_now() -> datetime.datetime:
@@ -55,16 +64,23 @@ def get_now() -> datetime.datetime:
         pytz.timezone(constants.TIME_ZONE)
         )
 
-def convert_date_to_current_timezone(date):
+def convert_date_to_current_timezone(date) -> datetime.datetime:
+    '''
+    Return the date with default timezone
+    '''
     return date.astimezone(pytz.timezone(constants.TIME_ZONE))
-
-def get_next_day(date: datetime):
+    
+def get_next_day(date: datetime) -> datetime.datetime:
+    '''
+    Return date of next day of the given date
+    '''
+    date = convert_date_to_current_timezone(date)
     n = date + datetime.timedelta(days=1)
     return datetime.datetime(n.year, n.month, n.day, tzinfo=pytz.timezone(constants.TIME_ZONE))
 
 def ordinal(n: int) -> str:
     """
-    Returns the ordinal number of the number
+    Return the ordinal number of the number
     1 -> 1st
     3 -> 3rd
     5 -> 5th
@@ -77,7 +93,7 @@ def parse_commad(text: str):
     Takes text of telegram message, 
     parses it into command and arguments 
     
-    Returns tuple: (command, [arguments,])
+    Return tuple: (command, [arguments,])
     '''
     command, _, raw_args = text.partition(' ')
     sep = ',' if ',' in raw_args else '\n' if '\n' in raw_args else ' '

@@ -30,7 +30,7 @@ class ListModel(Document):
 
     def __content(self) -> list:
         '''
-        Returns list in such way sorted by date:
+        Return list in such way sorted by date:
         [ ('<<item name>>', 1), ( ... ) ]
         '''
         logging.debug(f"getting content of {self._items}")
@@ -63,7 +63,7 @@ class ListModel(Document):
     def generate_buttons_for_list(self) -> types.InlineKeyboardMarkup:
         '''
         Generate InlineKeyboardMarkup for the list
-        If list is empty, returns empty button
+        If list is empty, return empty button
         '''
         keyboard = types.InlineKeyboardMarkup(row_width=2)
         logging.debug(f"Generate buttons for list with {len(self._items)} items")
@@ -129,7 +129,7 @@ class ListModel(Document):
         If new amount less than one, then delete it
         If there is no item_name, create one with amount == number
         
-        Returns bool as result of work
+        Return bool as result of work
         '''
         logging.debug(f"change item {item_name} for list: {self._items}")
         
