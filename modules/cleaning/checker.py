@@ -4,21 +4,14 @@ import logging
 import datetime
 
 from modules.database.models import UserModel
-from modules.common.utils import get_now, convert_date_to_current_timezone, get_next_day
 from modules.cleaning import messages
+from modules.common.utils import (
+    get_now, 
+    convert_date_to_current_timezone, 
+    get_next_day, 
+    get_current_building,
+    )
 
-def get_current_building(date: datetime.datetime) -> int:
-    '''
-    Returns number of current building 
-    '''
-
-    _, week_number, day_number = date.isocalendar()
-    if day_number not in [1, 4]:
-        return
-    if day_number == 1:
-        return 1 if not (week_number % 2) else 2
-    elif day_number == 4:
-        return 4 if not (week_number % 2) else 3
 
 async def check_time(dp: Dispatcher):
     '''
