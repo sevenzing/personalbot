@@ -71,7 +71,7 @@ class ListModel(Document):
             keyboard.add(
                 types.InlineKeyboardButton(
                     text=buylist_messages.BUTTON_EMPTY_LIST,
-                    callback_data='None',
+                    callback_data='empty_list',
                     )
             )
 

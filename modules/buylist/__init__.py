@@ -19,5 +19,5 @@ def setup(dp: Dispatcher, *args, **kwargs):
     )
     dp.register_callback_query_handler(
         answer_empty_list,
-        lambda query: query.data.startswith('None')
+        lambda query: query.data.startswith('empty_list')
     )
