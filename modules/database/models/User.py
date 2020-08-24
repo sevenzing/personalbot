@@ -1,11 +1,11 @@
 from typing import Union
 from pymongo.results import UpdateResult, InsertOneResult 
 from umongo import Document, fields, validate
+from marshmallow.exceptions import ValidationError
 
 from modules.common.utils import get_now
 from modules.database import mongo_instance
-from marshmallow.exceptions import ValidationError
-    
+from modules.common.constants import ON_CLEANING, BEFORE_CLEANING
 from modules.database.models import ListModel, create_list
 
 @mongo_instance.register
@@ -13,10 +13,22 @@ class UserModel(Document):
     buylist = fields.ReferenceField(ListModel, default=None)
     chat_id = fields.IntField(required=True, unique=True)
     username = fields.StrField()
-    lastnotice = fields.DateTimeField(default=get_now())
+    #lastnotice = fields.DateTimeField(default=get_now())
     checknotice = fields.BoolField(default=True)
     chosenbuilding = fields.IntField(default=0)
     noticehour = fields.IntField(default=8)
+    notification = fields.DictField(
+        default={
+            BEFORE_CLEANING: None,
+            ON_CLEANING: 8
+            }
+        )
+    lastnotice = fields.DictField(
+        default={
+            BEFORE_CLEANING: get_now(),
+            ON_CLEANING: get_now()
+            }
+        )
 
     class Meta:
         collection_name = 'user'

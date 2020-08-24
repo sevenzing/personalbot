@@ -25,4 +25,7 @@ INLINE_COMMAND_DECREASE = 'decrese'
 INLINE_COMMAND_EXIT = 'exit'
 INLINE_COMMAND_CLEAR = 'clear'
 
+BEFORE_CLEANING = 'before_cleaning'
+ON_CLEANING = 'on_cleaning'
+
 REMINDER_CHECKER_INTERVAL = 60 # sec

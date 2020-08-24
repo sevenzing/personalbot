@@ -8,12 +8,12 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
-    Return number of current building 
+    Return number of current building, -1 otherwise
     '''
 
     _, week_number, day_number = date.isocalendar()
     if day_number not in [1, 4]:
-        return
+        return -1
     if day_number == 1:
         return 1 if not (week_number % 2) else 2
     elif day_number == 4:
