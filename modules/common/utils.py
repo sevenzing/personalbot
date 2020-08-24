@@ -43,9 +43,11 @@ def get_next_cleaning_day(building_number: int) -> datetime.datetime:
     Return next cleaning date for the given building
     '''
     current_date = get_now()
-    while get_current_building(current_date) != building_number:
-         current_date = get_next_day(current_date)
-    return current_date
+    for _ in range(365):
+        if get_current_building(current_date) != building_number:
+            current_date = get_next_day(current_date)
+        else:
+            return current_date
 
 def days_left(date: datetime.datetime):
     '''

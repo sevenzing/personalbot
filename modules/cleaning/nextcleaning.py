@@ -10,16 +10,18 @@ from modules.common.utils import get_next_cleaning_day, ordinal, days_left, mont
 async def cmd_nextcleaning(message: types.Message):
     user = create_user_if_not_exists(message.chat.id)
     building_number = user.chosenbuilding
-    message_to_send = ''
+    message_to_send = 'error-21'
     if building_number == 0:
         message_to_send = messages.HAVE_NOT_BUILDING
     else:
         cleaning_date = get_next_cleaning_day(building_number)
-        message_to_send = messages.NEXT_CLEANING % (
-            ordinal(building_number),
-            days_left(cleaning_date),
-            ordinal(cleaning_date.day),
-            month_name(cleaning_date),
-            )
-    
+        if cleaning_date:
+            message_to_send = messages.NEXT_CLEANING % (
+                ordinal(building_number),
+                days_left(cleaning_date),
+                ordinal(cleaning_date.day),
+                month_name(cleaning_date),
+                )
+        else:
+            message_to_send = messages.NEXT_CLEANING_ERROR
     await message.answer(message_to_send, parse_mode='Markdown')

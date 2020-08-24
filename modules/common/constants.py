@@ -4,6 +4,8 @@ BOT_TOKEN = os.getenv('BOT_TOKEN', '')
 
 BOT_ADMIN = os.getenv('BOT_ADMIN', '')
 
+BOT_ADMIN_ALIAS = os.getenv('BOT_ADMIN_ALIAS', '')
+
 redis = {
     'host': 'redis',
     'port': 5432,
@@ -28,4 +30,4 @@ INLINE_COMMAND_CLEAR = 'clear'
 BEFORE_CLEANING = 'before_cleaning'
 ON_CLEANING = 'on_cleaning'
 
-REMINDER_CHECKER_INTERVAL = 60 # sec
+REMINDER_CHECKER_INTERVAL = 10 # sec
