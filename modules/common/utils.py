@@ -4,13 +4,12 @@ import pytz
 import math
 
 from modules.common import constants
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
     Return number of current building, -1 otherwise
     '''
-
+    return 1
     _, week_number, day_number = date.isocalendar()
     if day_number not in [1, 4]:
         return -1
@@ -18,25 +17,6 @@ def get_current_building(date: datetime.datetime) -> int:
         return 1 if not (week_number % 2) else 2
     elif day_number == 4:
         return 4 if not (week_number % 2) else 3
-
-def generate_choose_day_button() -> InlineKeyboardMarkup:
-    '''
-    Return buttons for choosing building message
-    '''
-    keyboard = InlineKeyboardMarkup(row_width=2)
-    for number in range(1, 4, 2):
-        keyboard.add(
-            InlineKeyboardButton(
-                f"{ordinal(number)}", 
-                callback_data=f"setbuilding:{number}"
-            ), 
-                
-            InlineKeyboardButton(
-                f"{ordinal(number + 1)}", 
-                callback_data=f"setbuilding:{number + 1}"
-            ),
-        )
-    return keyboard
 
 def get_next_cleaning_day(building_number: int) -> datetime.datetime:
     '''
