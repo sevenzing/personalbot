@@ -26,6 +26,8 @@ My personal telegram bot
 1. Setup `.evn` file:
 ```
 BOT_TOKEN=111111111:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+BOT_ADMIN=999999999
+BOT_ADMIN_ALIAS=aaaaaaaaa
 ```
 2. Start the bot using docker:
 
