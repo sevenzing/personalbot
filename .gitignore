@@ -1,3 +1,5 @@
+*.mp4
+
 appendonly.aof
 storage/
 # Byte-compiled / optimized / DLL files
