@@ -6,8 +6,8 @@ import logging
 from .checker import check_time
 from .setbuilding import cmd_setbuilding, answer_callback_setbuilding_handler
 from .nextcleaning import cmd_nextcleaning
-from .setreminder import cmd_setreminder
-from modules.common.constants import BOT_ADMIN, REMINDER_CHECKER_INTERVAL
+from .setreminder import cmd_setreminder, answer_callback_setreminder_handler
+from modules.common.constants import BOT_ADMIN, REMINDER_CHECKER_INTERVAL, INLINE_PREFIX_SETBUILDING, INLINE_PREFIX_SETREMINDER
 
 
 async def forever(function, interval, *args, **kwargs):
@@ -29,5 +29,9 @@ def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
     dp.register_message_handler(cmd_nextcleaning, Command('nextcleaning'))
     dp.register_callback_query_handler(
         answer_callback_setbuilding_handler,
-        lambda query: query.data.startswith('setbuilding')
+        lambda query: query.data.startswith(INLINE_PREFIX_SETBUILDING)
         )
+    dp.register_callback_query_handler(
+        answer_callback_setreminder_handler,
+        lambda query: query.data.startswith(INLINE_PREFIX_SETREMINDER)
+    )

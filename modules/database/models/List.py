@@ -71,7 +71,7 @@ class ListModel(Document):
             keyboard.add(
                 types.InlineKeyboardButton(
                     text=buylist_messages.BUTTON_EMPTY_LIST,
-                    callback_data='empty_list',
+                    callback_data=constants.INLINE_PREFIX_EMPTY_LIST,
                     )
             )
 
@@ -81,21 +81,21 @@ class ListModel(Document):
         for item_name, amount in self.__content():
             name_button = types.InlineKeyboardButton(
                 text = f"{item_name}: [{amount}]",
-                callback_data=f"change_menu:{constants.INLINE_COMMAND_INCRESE}:{item_name}")
+                callback_data=f"{constants.INLINE_PREFIX_CHANGE_MENU}:{constants.INLINE_COMMAND_INCRESE}:{item_name}")
 
             decr_button = types.InlineKeyboardButton(
                 text = buylist_messages.BUTTON_DECREASE,
-                callback_data=f"change_menu:{constants.INLINE_COMMAND_DECREASE}:{item_name}")
+                callback_data=f"{constants.INLINE_PREFIX_CHANGE_MENU}:{constants.INLINE_COMMAND_DECREASE}:{item_name}")
             
             keyboard.add(name_button, decr_button)
 
         close_button = types.InlineKeyboardButton(
                 text = buylist_messages.BUTTON_EXIT,
-                callback_data=f"change_menu:{constants.INLINE_COMMAND_EXIT}:")
+                callback_data=f"{constants.INLINE_PREFIX_CHANGE_MENU}:{constants.INLINE_COMMAND_EXIT}:")
 
         clearlist_button = types.InlineKeyboardButton(
                 text = buylist_messages.BUTTON_CLEAR,
-                callback_data=f"change_menu:{constants.INLINE_COMMAND_CLEAR}:")
+                callback_data=f"{constants.INLINE_PREFIX_CHANGE_MENU}:{constants.INLINE_COMMAND_CLEAR}:")
         
         keyboard.add(close_button, clearlist_button)
 
