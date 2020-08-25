@@ -14,3 +14,6 @@ NEXT_CLEANING = 'Your building is %s, so the next cleaning day will be in *%d da
 NEXT_CLEANING_ERROR = '*Failed* to get your cleaning day. Write to @%s to fix this error' % BOT_ADMIN_ALIAS
 
 HAVE_NOT_BUILDING = "You haven't chosen a building yet. \n/setbuilding"
+
+BUTTON_ON_CLEANING = '%s On cleaning %s'
+BUTTON_BEFORE_CLEANING = '%s Before cleaning %s'
