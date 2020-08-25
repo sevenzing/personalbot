@@ -16,9 +16,10 @@ My personal telegram bot
     ![](media/example_buylist.png)
 
 + Cleaning reminder ✘
-    + /nextcleaning ✘
+    + /nextcleaning ✔
     + /setbuilding ✔
     + /setreminder ✘
+    + /notify ✘
     + Nice response messages ✘
 
 ## How to start
