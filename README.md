@@ -21,6 +21,7 @@ My personal telegram bot
     + /setreminder ✔
     + /schedule ✔
     + Nice response messages ✘
+    ![](media/cleaning_module_example.gif)
 
 ## How to start
 1. Setup `.evn` file:
