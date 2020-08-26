@@ -71,7 +71,10 @@ def generate_setreminder_buttons(user: UserModel) -> InlineKeyboardMarkup:
 async def cmd_setreminder(message: types.Message):
     user = create_user_if_not_exists(message.chat.id)
     
-    await message.answer(text='not yet', reply_markup=generate_setreminder_buttons(user))
+    await message.answer(
+        text=messages.ON_CMD_SETREMINDER, 
+        reply_markup=generate_setreminder_buttons(user)
+        )
 
 
 async def answer_callback_setreminder_handler(query: types.CallbackQuery):
