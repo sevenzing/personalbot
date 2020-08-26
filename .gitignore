@@ -1,5 +1,6 @@
 *.mp4
-
+*.gif
+!media/*
 appendonly.aof
 storage/
 # Byte-compiled / optimized / DLL files
