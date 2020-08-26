@@ -18,8 +18,7 @@ My personal telegram bot
 + Cleaning reminder ✘
     + /nextcleaning ✔
     + /setbuilding ✔
-    + /setreminder ✘
-    + /notify ✘
+    + /setreminder ✔
     + Nice response messages ✘
 
 ## How to start
