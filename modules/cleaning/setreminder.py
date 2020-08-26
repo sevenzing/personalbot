@@ -7,6 +7,9 @@ from modules.database.models import UserModel, create_user_if_not_exists
 from modules.common import constants
 
 def generate_empty_button() -> InlineKeyboardButton:
+    '''
+    Generate and return empty_button
+    '''
     return InlineKeyboardButton(text=' ', callback_data='None')
 
 def generate_setreminder_buttons(user: UserModel) -> InlineKeyboardMarkup:
@@ -18,42 +21,42 @@ def generate_setreminder_buttons(user: UserModel) -> InlineKeyboardMarkup:
     [     8:00     ] [                  ]
     [      🔻      ] [                  ]
     [               CLOSE               ]
+
+    callback data of every button forms like PREFIX:INFIX:ARG
+    example for setreminder buttons is setreminder:plus:on_cleaning
     '''
     keyboard = [[generate_empty_button() for _ in range(2)] for _ in range(4)]
-
-    notification_hour_on_cleaning = user.notification[constants.ON_CLEANING]
-    notification_hour_before_cleaning = user.notification[constants.BEFORE_CLEANING]
 
     DOUBLE_EMOJI_CHECK_MARK = (constants.EMOJI_CHECK_MARK,) *2
     DOUBLE_EMOJI_X_MARK = (constants.EMOJI_X_MARK,) *2
 
-    ON_CLEANING_SIGNS = DOUBLE_EMOJI_CHECK_MARK if notification_hour_on_cleaning else DOUBLE_EMOJI_X_MARK
-    BEFORE_CLEANING_SIGNS = DOUBLE_EMOJI_CHECK_MARK if notification_hour_before_cleaning else DOUBLE_EMOJI_X_MARK
+    args = [constants.ON_CLEANING, constants.BEFORE_CLEANING]
+    buttons_messages = [messages.BUTTON_ON_CLEANING, messages.BUTTON_BEFORE_CLEANING]
 
-    keyboard[0][0] = InlineKeyboardButton(
-        text=messages.BUTTON_ON_CLEANING % ON_CLEANING_SIGNS, 
-        callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_TURN, constants.ON_CLEANING]))
-    
-    keyboard[0][1] = InlineKeyboardButton(
-        text=messages.BUTTON_BEFORE_CLEANING % BEFORE_CLEANING_SIGNS, 
-        callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_TURN, constants.BEFORE_CLEANING]))
-    
-    for i, arg in enumerate([constants.ON_CLEANING, constants.BEFORE_CLEANING]):
+    for i, (arg, button_message) in enumerate(zip(args,buttons_messages)):
         notification_hour = user.notification[arg]
+
+        # turn on/off button
+        keyboard[0][i] = InlineKeyboardButton(
+            text=button_message % (DOUBLE_EMOJI_CHECK_MARK if notification_hour else DOUBLE_EMOJI_X_MARK),
+            callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_TURN, arg])
+            )
+
         if notification_hour == None:
+            # if so, leave remaining buttons as empty_buttons
             continue
 
-        # /\
+        # /\ button
         keyboard[1][i] = InlineKeyboardButton(
             text=constants.EMOJI_RED_TRIANGLE_POINTED_UP,
             callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_PLUS, arg])
         )
-        # time
+        # time button
         keyboard[2][i] = InlineKeyboardButton(
             text=f"{notification_hour}:00",
             callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_TIME, arg])
         )
-        # \/
+        # \/ button
         keyboard[3][i] = InlineKeyboardButton(
             text=constants.EMOJI_RED_TRIANGLE_POINTED_DOWN,
             callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_MINUS, arg])
