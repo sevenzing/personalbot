@@ -1,6 +1,6 @@
 from aiogram import types
 import logging
-
+from modules.default import messages
 
 async def cmd_help(message: types.Message):
-    pass
+    await message.answer(messages.ON_CMD_HELP)
