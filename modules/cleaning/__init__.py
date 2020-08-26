@@ -7,6 +7,7 @@ from .checker import check_time
 from .setbuilding import cmd_setbuilding, answer_callback_setbuilding_handler
 from .nextcleaning import cmd_nextcleaning
 from .setreminder import cmd_setreminder, answer_callback_setreminder_handler
+from .schedule import cmd_schedule
 from modules.common.constants import BOT_ADMIN, REMINDER_CHECKER_INTERVAL, INLINE_PREFIX_SETBUILDING, INLINE_PREFIX_SETREMINDER
 
 
@@ -24,6 +25,7 @@ def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
         dp=dp
         ))
 
+    dp.register_message_handler(cmd_schedule, Command('schedule'))
     dp.register_message_handler(cmd_setbuilding, Command('setbuilding'))
     dp.register_message_handler(cmd_setreminder, Command('setreminder'))
     dp.register_message_handler(cmd_nextcleaning, Command('nextcleaning'))

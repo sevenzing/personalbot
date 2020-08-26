@@ -2,6 +2,7 @@ import logging
 import datetime
 import pytz
 import math
+import requests
 
 from modules.common import constants
 
@@ -9,7 +10,7 @@ def get_current_building(date: datetime.datetime) -> int:
     '''
     Return number of current building, -1 otherwise
     '''
-    return 1
+    
     _, week_number, day_number = date.isocalendar()
     if day_number not in [1, 4]:
         return -1
@@ -76,6 +77,7 @@ def parse_commad(text: str):
     parses it into command and arguments 
     
     Return tuple: (command, [arguments,])
+    /add kek, lol, kek -> ('/add', ['kek', 'lol', 'kek'])
     '''
     command, _, raw_args = text.partition(' ')
     sep = ',' if ',' in raw_args else '\n' if '\n' in raw_args else ' '
@@ -85,3 +87,6 @@ def parse_commad(text: str):
         )
     )
     return (command, args)
+
+def get_file_by_url(url):
+    return requests.get(url).content

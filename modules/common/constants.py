@@ -6,6 +6,8 @@ BOT_ADMIN = os.getenv('BOT_ADMIN', '')
 
 BOT_ADMIN_ALIAS = os.getenv('BOT_ADMIN_ALIAS', '')
 
+URL_TO_SCHEDULE = os.environ.get('URL_TO_SCHEDULE', '')
+
 redis = {
     'host': 'redis',
     'port': 5432,
