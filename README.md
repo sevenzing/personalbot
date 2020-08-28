@@ -26,11 +26,11 @@ Current avaliavle on @kektest1488bot in testing mode
 
     ![](media/cleaning_module_example.gif)
 
-+ Default module
-    + /start, /help, /cancel
++ Default module ✔
+    + /start, /help, /cancel ✔
 
-+ Admin module
-    + /restart
++ Admin module ✘
+    + /restart ✘
 
 ## How to start
 1. Setup `.evn` file 
