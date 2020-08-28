@@ -1,6 +1,8 @@
 My personal telegram bot
 ====
 
+Current avaliavle on @kektest1488bot in testing mode
+
 ## Modules
 ✔ - implemented
 
@@ -21,15 +23,20 @@ My personal telegram bot
     + /setreminder ✔
     + /schedule ✔
     + Nice response messages ✘
+
     ![](media/cleaning_module_example.gif)
 
++ Default module
+    + /start, /help, /cancel
+
++ Admin module
+    + /restart
+
 ## How to start
-1. Setup `.evn` file:
-```
-BOT_TOKEN=111111111:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-BOT_ADMIN=999999999
-BOT_ADMIN_ALIAS=aaaaaaaaa
-```
+1. Setup `.evn` file 
+    + Create `.env` file in root directory: `mv .env.example .env`
+    + Fill the file using your telegram token, admin alias, etc
+
 2. Start the bot using docker:
 
 ```bash
