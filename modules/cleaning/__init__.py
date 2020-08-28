@@ -1,6 +1,6 @@
 from aiogram import Dispatcher
 from aiogram.dispatcher.filters import Command, StateFilter
-from asyncio import AbstractEventLoop, sleep as async_sleep
+from asyncio import AbstractEventLoop
 import logging
 
 from .checker import check_time
@@ -8,18 +8,14 @@ from .setbuilding import cmd_setbuilding, answer_callback_setbuilding_handler
 from .nextcleaning import cmd_nextcleaning
 from .setreminder import cmd_setreminder, answer_callback_setreminder_handler
 from .schedule import cmd_schedule
+
 from modules.common.constants import BOT_ADMIN, REMINDER_CHECKER_INTERVAL, INLINE_PREFIX_SETBUILDING, INLINE_PREFIX_SETREMINDER
+from modules.common.utils import forever_run
 
-
-async def forever(function, interval, *args, **kwargs):
-    while 1:
-        logging.debug(f"Run function {function.__name__}")
-        await function(*args, **kwargs)
-        await async_sleep(interval)
 
 def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
     logging.debug('Initialize cleaning module')
-    loop.create_task(forever(
+    loop.create_task(forever_run(
         function=check_time, 
         interval=REMINDER_CHECKER_INTERVAL,
         dp=dp

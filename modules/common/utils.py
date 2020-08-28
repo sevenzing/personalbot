@@ -3,7 +3,7 @@ import datetime
 import pytz
 import math
 import requests
-
+import asyncio
 from modules.common import constants
 
 def get_current_building(date: datetime.datetime) -> int:
@@ -90,3 +90,11 @@ def parse_commad(text: str):
 
 def get_file_by_url(url):
     return requests.get(url).content
+
+
+
+async def forever_run(function, interval, *args, **kwargs):
+    while 1:
+        logging.debug(f"Run function {function.__name__}")
+        await function(*args, **kwargs)
+        await asyncio.sleep(interval)
