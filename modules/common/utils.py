@@ -4,8 +4,6 @@ import pytz
 import math
 import requests
 import asyncio
-import functools
-from aiogram import types
 
 from modules.common import constants
 
@@ -103,10 +101,3 @@ async def forever_run(function, interval, *args, **kwargs):
         await asyncio.sleep(interval)
 
 
-def admin_only_handler(func):
-    @functools.wraps(func)
-    async def call(message: types.Message, *args, **kwargs):
-        logging.info(f"User {message.from_user.id}/{message.from_user.username} is trying to execute admin command")
-        if message.from_user.id == constants.BOT_ADMIN:
-            return await func(message, *args, **kwargs)
-    return call

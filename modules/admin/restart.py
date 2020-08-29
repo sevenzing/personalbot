@@ -1,5 +1,5 @@
 from aiogram import types
-from modules.common.utils import admin_only_handler
+from modules.admin.utils import admin_only_handler, send_message_to_admin
 from modules.common.constants import EXIT_CODES
 from misc import dp
 import logging
