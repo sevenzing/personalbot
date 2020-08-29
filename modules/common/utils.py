@@ -4,6 +4,9 @@ import pytz
 import math
 import requests
 import asyncio
+import functools
+from aiogram import types
+
 from modules.common import constants
 
 def get_current_building(date: datetime.datetime) -> int:
@@ -98,3 +101,12 @@ async def forever_run(function, interval, *args, **kwargs):
         logging.debug(f"Run function {function.__name__}")
         await function(*args, **kwargs)
         await asyncio.sleep(interval)
+
+
+def admin_only_handler(func):
+    @functools.wraps(func)
+    async def call(message: types.Message, *args, **kwargs):
+        logging.info(f"User {message.from_user.id}/{message.from_user.username} is trying to execute admin command")
+        if message.from_user.id == constants.BOT_ADMIN:
+            return await func(message, *args, **kwargs)
+    return call
