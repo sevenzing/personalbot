@@ -8,6 +8,9 @@ from modules.database.models import create_user_if_not_exists
 from modules.common.utils import get_next_cleaning_day, ordinal, days_left, month_name
 
 async def cmd_nextcleaning(message: types.Message):
+    '''
+    Send nextbuilding date to the chat
+    '''
     user = create_user_if_not_exists(message.chat.id)
     building_number = user.chosenbuilding
     message_to_send = 'error-21'

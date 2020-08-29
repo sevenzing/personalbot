@@ -19,7 +19,7 @@ async def check_connection(*args, **kwargs):
         result = None
     
     if not result:
-        logging.debug('Cannot connect to the internet. Exit from the bot')
+        logging.warning('Cannot connect to the internet. Exit from the bot')
         sys.exit(EXIT_CODES['Internet'])
     else:
         logging.debug('Internet connected')

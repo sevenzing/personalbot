@@ -8,7 +8,7 @@ from modules.common import constants
 import logging
 
 def setup(dp: Dispatcher, *args, **kwargs):
-    logging.debug('Initialize buylist module')
+    logging.info('Initialize buylist module')
     
     dp.register_message_handler(cmd_list, Command('list'), state='*')
     dp.register_message_handler(cmd_add, Command('add'))

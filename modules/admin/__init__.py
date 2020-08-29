@@ -6,6 +6,6 @@ import logging
 
 
 def setup(dp: Dispatcher, *args, **kwargs):
-    logging.debug('Initialize admin module')
+    logging.info('Initialize admin module')
     
-    dp.register_message_handler(cmd_restart, Command('restart'))
+    dp.register_message_handler(cmd_restart, Command('restart', prefixes='#'))

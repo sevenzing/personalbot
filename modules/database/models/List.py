@@ -10,7 +10,6 @@ from misc import dp
 
 import logging
 
-logging.debug('initialize list model')
 
 
 def default_list():
@@ -66,7 +65,7 @@ class ListModel(Document):
         If list is empty, return empty button
         '''
         keyboard = types.InlineKeyboardMarkup(row_width=2)
-        logging.debug(f"Generate buttons for list with {len(self._items)} items")
+        logging.info(f"Generate buttons for list with {len(self._items)} items for {self.chat_id}")
         if len(self._items) == 0:
             keyboard.add(
                 types.InlineKeyboardButton(
@@ -151,7 +150,7 @@ class ListModel(Document):
         
     async def update_all_list_messages(self):
         buttons = self.generate_buttons_for_list()
-        logging.debug(f"Update all messages for chat {self.chat_id}")
+        logging.info(f"Update all messages for chat {self.chat_id}")
         for message_id in self.messages:
             logging.debug(f"Edit message {message_id}")
             try:

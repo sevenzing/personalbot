@@ -46,7 +46,7 @@ async def check_time(dp: Dispatcher):
         logging.debug(f"last notice was at {lastnotice} ({lastnotice.tzname()}). Current hour: {now.hour}")
         
         if now >= lastnotice and now.hour >= notice_hour:
-            logging.debug(f"Send notification for {user.chat_id} with username {user.username}")
+            logging.info(f"Send notification for {user.chat_id} with username {user.username}")
             await dp.bot.send_message(
                 user.chat_id, 
                 messages.CLEANING_NOTIFICATION % 

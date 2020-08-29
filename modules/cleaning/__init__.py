@@ -14,7 +14,7 @@ from modules.common.utils import forever_run
 
 
 def setup(dp: Dispatcher, loop: AbstractEventLoop = None, *args, **kwargs):
-    logging.debug('Initialize cleaning module')
+    logging.info('Initialize cleaning module')
     loop.create_task(forever_run(
         function=check_time, 
         interval=REMINDER_CHECKER_INTERVAL,

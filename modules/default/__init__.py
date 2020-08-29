@@ -12,7 +12,7 @@ from modules.common.utils import forever_run
 from modules.default.checker import check_connection
 
 def setup(dp: Dispatcher, loop: AbstractEventLoop=None, *args, **kwargs):
-    logging.debug('Initialize default module')
+    logging.info('Initialize default module')
 
     loop.create_task(forever_run(
         function=check_connection, 

@@ -105,7 +105,7 @@ async def answer_callback_setreminder_handler(query: types.CallbackQuery):
         await query.message.delete()
         return
     else:
-        logging.debug(f"Command {command} not found")
+        logging.warning(f"Command {command} not found")
         return
 
     user.notification[arg] = current_hour
