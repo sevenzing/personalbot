@@ -11,5 +11,5 @@ async def cmd_start(message: types.Message):
     """
     user = create_user_if_not_exists(message.chat.id)
     if message.chat.id == message.from_user.id:
-        user.update(username=message.from_user.username)
+        user.update(username=(message.from_user.username or 'None'))
     await message.answer(messages.ON_CMD_START)
