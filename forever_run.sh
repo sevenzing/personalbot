@@ -4,14 +4,19 @@ result=starting_code
 time_start=$(($(date +%s%N)/1000000000)) # IN SECONDS 
 
 while [ ${result} != 0 ]; do
-    if [ ${result} == 44 ]
-    then
+    echo "Got exit code ${result}."
+
+    if [ ${result} == 44 ]; then
         amount_to_sleep=15
         echo "Sleep in ${amount_to_sleep} seconds"
         sleep ${amount_to_sleep}
         time_start=${time_finished}
+    elif [ ${result} == 10 ]; then
+        echo "Restart request from the bot"
+    else
+        echo "Unknown exit code"
     fi
-    echo "Got exit code ${result}."
+
     echo "Stop all containers"
     docker-compose down
     echo "Recreating containers"
