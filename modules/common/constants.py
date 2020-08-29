@@ -2,7 +2,7 @@ import os
 
 BOT_TOKEN = os.getenv('BOT_TOKEN', '')
 
-BOT_ADMIN = os.getenv('BOT_ADMIN', '')
+BOT_ADMIN = int(os.getenv('BOT_ADMIN', ''))
 
 BOT_ADMIN_ALIAS = os.getenv('BOT_ADMIN_ALIAS', '')
 
@@ -60,5 +60,6 @@ DEFAULT_NOTICE_HOUR_ON_CLEANING = 8
 DEFAULT_NOTICE_HOUR_BEFORE_CLEANING = 20
 
 EXIT_CODES = {
-    'Internet': 44
+    'Internet': 44,
+    'Restart': 10,
 }
