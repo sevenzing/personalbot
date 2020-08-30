@@ -5,13 +5,13 @@ ADDED_TO_LIST = 'Acknowledged. Look at your list: /list'
 
 SOMETHING_WENT_WRONG = 'Something went wrong. Please, retry the same question in several minutes'
 
-ON_CMD_ADD = 'Send me a list separated either by commas or new lines. Write /cancel to cancel an add'
+ON_CMD_ADD = '🛒 Send me a list separated either by commas or new lines. Write /cancel to cancel an add'
 
 QUERY_DONE = 'Done'
 
 QUERY_EMPTY_LIST = 'To add something to your list, write /add'
 
-BUTTON_EMPTY_LIST = 'Empty list'
+BUTTON_EMPTY_LIST = '⚪ Empty list'
 
 BUTTON_DECREASE = '[Decrease]'
 BUTTON_CLEAR = '[Clear]'
