@@ -1,7 +1,18 @@
 #!/bin/bash
 
+echo "Stop all containers"
+docker-compose down
+echo "Building containers"
+docker-compose build
+echo "Creating database containers"
+docker-compose up -d mongo redis
+if [ $1 == "--mongo-express" ]; then 
+    echo "Creating mongo-express container"
+    docker-compose up -d mongo-express
+fi
+
 result=starting_code
-time_start=$(($(date +%s%N)/1000000000)) # IN SECONDS 
+time_start=$(date +%s) # IN SECONDS 
 
 while [ ${result} != 0 ]; do
     echo "Got exit code ${result}."
@@ -17,16 +28,12 @@ while [ ${result} != 0 ]; do
         echo "Unknown exit code"
     fi
 
-    echo "Stop all containers"
-    docker-compose down
-    echo "Recreating containers"
-    docker-compose up -d mongo mongo-express redis
-
     time_start=${time_finished}
-    docker-compose up --build --exit-code-from bot bot
+    docker-compose stop bot
+    docker-compose up --exit-code-from bot bot
 
     result=$?
-    time_finished=$(($(date +%s%N)/1000000000)) # IN SECONDS 
+    time_finished=$(date +%s) # IN SECONDS 
 done
 
 echo "Done. Stop all containers"
