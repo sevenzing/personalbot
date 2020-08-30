@@ -63,7 +63,7 @@ def generate_setreminder_buttons(user: UserModel) -> InlineKeyboardMarkup:
         )
     
     close_button = InlineKeyboardButton(
-        text='Close',
+        text=messages.BUTTON_EXIT,
         callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_CLOSE, ''])
     )
     return InlineKeyboardMarkup(inline_keyboard=(keyboard + [[close_button]]))

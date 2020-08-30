@@ -13,6 +13,6 @@ QUERY_EMPTY_LIST = 'To add something to your list, write /add'
 
 BUTTON_EMPTY_LIST = '⚪ Empty list'
 
-BUTTON_DECREASE = '[Decrease]'
-BUTTON_CLEAR = '[Clear]'
-BUTTON_EXIT = '[Close]'
+BUTTON_DECREASE = 'Decrease'
+BUTTON_CLEAR = 'Clear'
+BUTTON_EXIT = 'Close'
