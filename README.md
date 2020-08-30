@@ -1,7 +1,7 @@
 My personal telegram bot
 ====
 
-Current avaliavle on @kektest1488bot in testing mode
+Current avaliavle on @hdjnvtsudsbot in testing mode
 
 ## Modules
 ✔ - implemented
