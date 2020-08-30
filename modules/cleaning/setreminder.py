@@ -38,7 +38,7 @@ def generate_setreminder_buttons(user: UserModel) -> InlineKeyboardMarkup:
 
         # turn on/off button
         keyboard[0][i] = InlineKeyboardButton(
-            text=button_message % (DOUBLE_EMOJI_CHECK_MARK if notification_hour else DOUBLE_EMOJI_X_MARK),
+            text=button_message % (DOUBLE_EMOJI_CHECK_MARK if notification_hour != None else DOUBLE_EMOJI_X_MARK),
             callback_data=':'.join([constants.INLINE_PREFIX_SETREMINDER, constants.INLINE_INFIX_TURN, arg])
             )
 

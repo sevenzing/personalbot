@@ -9,6 +9,8 @@ from modules.common import constants
 
 def get_current_building(date: datetime.datetime) -> int:
     '''
+    Main function of schedule. Logic of the function
+    affects on logic of notification
     Return number of current building, -1 otherwise
     '''
     
