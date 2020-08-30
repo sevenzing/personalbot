@@ -91,10 +91,6 @@ def parse_commad(text: str):
     )
     return (command, args)
 
-def get_file_by_url(url):
-    return requests.get(url).content
-
-
 
 async def forever_run(function, interval, *args, **kwargs):
     while 1:
