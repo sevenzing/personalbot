@@ -13,14 +13,12 @@ def get_current_building(date: datetime.datetime) -> int:
     affects on logic of notification
     Return number of current building, -1 otherwise
     '''
-    
     _, week_number, day_number = date.isocalendar()
-    if day_number not in [1, 4]:
+    if day_number not in [1, 3, 5]:
         return -1
-    if day_number == 1:
-        return 1 if not (week_number % 2) else 2
-    elif day_number == 4:
-        return 4 if not (week_number % 2) else 3
+    
+    order = [1, 4, 2, 3]
+    return order[(order.index((order[2:4][::-1] + order[0:2][::-1])[(week_number - 1) % 4]) + (day_number - 1) // 2) % 4]
 
 def get_next_cleaning_day(building_number: int) -> datetime.datetime:
     '''

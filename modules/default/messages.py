@@ -4,8 +4,8 @@ ON_CMD_START =  'Hi! I\'m personal bot. \n\n'\
                 '📅 Select your building number to understand the cleaning schedule - /setbuilding\n'\
                 '🛒 You can /add item to your buylist and manage it using /list\n'\
                 '❓ When the /nextcleaning day?\n'\
-                '👥 Add me to your chat of the room! It\'s more convinient to notify about cleanings'\
-                '👨‍💻 Admin alias and github link in the description!'
+                '👥 Add me to your chat of the room! It\'s more convinient to notify about cleanings\n'\
+                '👨‍💻 Admin alias and github link in the description!\n'
                 
 ON_CMD_HELP = \
 '''**What can I do?**
