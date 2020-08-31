@@ -9,9 +9,11 @@ ON_CMD_START =  'Hi! I\'m personal bot. \n\n'\
                 
 ON_CMD_HELP = \
 '''**What can I do?**
-1. I can manage your buy list for shopping! Add me to your chat room!
+
+1. I can manage your buy list for shopping!
 /list - get your current buy list
-/add [item,] - add something to your list  
+/add [item,] - add something to your list
+
 2. I can notify you about cleaning days in innopolis dorm!
 /nextcleaning - get next cleaning day
 /setbuilding - set your building number
