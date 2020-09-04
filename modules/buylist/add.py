@@ -9,7 +9,7 @@ from modules.database.models import UserModel, create_user_if_not_exists
 import logging
 
 
-class Form(StatesGroup):
+class AddFSM(StatesGroup):
     waiting_for_add = State()
 
 async def cmd_add(message: types.Message):
@@ -22,7 +22,7 @@ async def cmd_add(message: types.Message):
     if args:
         await __add_to_list(message, items=args)
     else:
-        await Form.waiting_for_add.set()
+        await AddFSM.waiting_for_add.set()
         logging.debug('Set state to waiting')
         await message.answer(messages.ON_CMD_ADD)
 
