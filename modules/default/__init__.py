@@ -27,7 +27,7 @@ def setup(dp: Dispatcher, loop: AbstractEventLoop=None, *args, **kwargs):
     dp.register_message_handler(cmd_cancel, Command('cancel'), state='*')
     dp.register_message_handler(
         cmd_start,
-        lambda message: [bot_id == user.id for user in message.new_chat_members],
+        lambda message: [user for user in message.new_chat_members if bot_id == user.id],
         content_types=ContentType.NEW_CHAT_MEMBERS,
         )
     dp.register_message_handler(
