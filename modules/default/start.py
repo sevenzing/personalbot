@@ -14,7 +14,7 @@ async def cmd_start(message: types.Message):
 
     first_time = not find_user({'chat_id': message.chat.id})
     user = create_user_if_not_exists(message.chat.id)
-    if message.chat.id == message.from_user.id:
+    if message.from_user.username:
         user.update(username=(message.from_user.username or 'None'))
     await message.answer(messages.ON_CMD_START)
     if first_time:

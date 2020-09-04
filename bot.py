@@ -17,11 +17,6 @@ async def on_shutdown(dp):
     await send_message_to_admin('Shut down the bot')
 
 if __name__ == '__main__':
-    
-    
-    
-    
-    # the order matters
     setup_default(dp, loop=event_loop)
     setup_admin(dp)
     setup_buylist(dp)

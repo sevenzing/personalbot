@@ -23,5 +23,7 @@ mongo_instance = Instance(mongo_client.personalbot)
 bot = Bot(token=constants.BOT_TOKEN)
 dp = Dispatcher(bot, storage=storage)
 
+bot_id = bot.id
+
 event_loop = asyncio.get_event_loop()
 

@@ -5,7 +5,7 @@ ADDED_TO_LIST = 'Acknowledged. Look at your list: /list'
 
 SOMETHING_WENT_WRONG = 'Something went wrong. Please, retry the same question in several minutes'
 
-ON_CMD_ADD = '🛒 Send me a list separated either by commas or new lines. Write /cancel to cancel an add'
+ON_CMD_ADD = '🛒 Send me a list separated either by commas or new lines. Write /cancel to cancel an addition'
 
 QUERY_DONE = 'Done'
 
