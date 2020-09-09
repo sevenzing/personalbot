@@ -1,5 +1,6 @@
 import asyncio
 from aiogram import Dispatcher
+from aiogram.utils.exceptions import ChatNotFound
 import logging
 import datetime
 from itertools import chain, cycle
@@ -47,14 +48,17 @@ async def check_time(dp: Dispatcher):
         
         if now >= lastnotice and now.hour >= notice_hour:
             logging.info(f"Send notification for {user.chat_id} with username {user.username}")
-            await dp.bot.send_message(
-                user.chat_id, 
-                messages.CLEANING_NOTIFICATION % 
-                    ('today' if on_day == ON_CLEANING else 'tomorrow')
-                )
-            
-            user.lastnotice[on_day] = get_next_day(now)
-            user.update(lastnotice=user.lastnotice)
+            try:
+                await dp.bot.send_message(
+                    user.chat_id, 
+                    messages.CLEANING_NOTIFICATION % 
+                        ('today' if on_day == ON_CLEANING else 'tomorrow')
+                    )
+                
+                user.lastnotice[on_day] = get_next_day(now)
+                user.update(lastnotice=user.lastnotice)
+            except ChatNotFound as e:
+                logging.error(e)
         else:
             logging.debug(f"Skip notice for {user.chat_id}")
 
