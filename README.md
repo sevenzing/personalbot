@@ -1,36 +1,31 @@
 My personal telegram bot
 ====
 
-Current avaliavle on @hdjnvtsudsbot in testing mode
+Current avaliavle on @roomInnoBot in testing mode
 
 ## Modules
-✔ - implemented
 
-✘ - not yet
-
-+ Convenient buy list ✘
-    + /add ✔
-    + /list ✔
-    + Callback on list ✔
-    + Update previous 5 lists after changing or adding ✔
-    + Nice response messages ✘
++ Convenient buy list
+    + /add
+    + /list
+    + Callback on list
+    + Update previous 5 lists after changing or adding
     
     ![](media/example_buylist.png)
 
-+ Cleaning reminder ✘
-    + /nextcleaning ✔
-    + /setbuilding ✔
-    + /setreminder ✔
-    + /schedule ✔
-    + Nice response messages ✘
++ Cleaning reminder 
+    + /nextcleaning
+    + /setbuilding
+    + /setreminder
+    + /schedule
 
     ![](media/cleaning_module_example.gif)
 
-+ Default module ✔
-    + /start, /help, /cancel ✔
++ Default module
+    + /start, /help, /cancel
 
-+ Admin module ✘
-    + /restart ✘
++ Admin module
+    + #restart
 
 ## Requirements
 + [docker](https://www.docker.com/get-started)
@@ -45,3 +40,32 @@ Current avaliavle on @hdjnvtsudsbot in testing mode
 ```bash
 $ ./forever_run.sh
 ```
+
+## How to create your own module
+
+1. Create a directory in `modules/` with name of your module
+
+2. Create a `__init__.py` file in the directory of your module
+
+3. Write a `setup` function that will register all your handlers in the bot:
+```python
+def setup(dp: Dispatcher, *args, **kwargs):
+    dp.register_message_handler(your_cmd_function, Command('your_cmd'))
+```
+4. Create `message.py` file in the directory of your module. Use it to store all your text messages
+
+5. Attach the module to the bot in `bot.py` file:
+
+```python
+from modules.your_module import setup as setup_your_module
+
+#...
+
+if __name__ == '__main__':
+    setup_your_module(dp)
+```
+6. Implement all your thoughts!
+    + import constants and utils from modules.common
+    + add/change Models from modules.database.models
+    + add dependencies in the `requirements.txt`
+
