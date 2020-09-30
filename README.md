@@ -11,7 +11,7 @@ Current avaliavle on @roomInnoBot in testing mode
     + Callback on list
     + Update previous 5 lists after changing or adding
     
-    ![](media/example_buylist.png)
+    ![](media/example_buylist.gif)
 
 + Cleaning reminder 
     + /nextcleaning
