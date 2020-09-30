@@ -1,7 +1,7 @@
 My personal telegram bot
 ====
 
-Current avaliavle on @roomInnoBot in testing mode
+Current avaliavle on [@roomInnoBot](http://t.me/roomInnoBot) in testing mode
 
 ## Modules
 
