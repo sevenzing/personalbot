@@ -11,14 +11,15 @@ Current avaliavle on [@roomInnoBot](http://t.me/roomInnoBot) in testing mode
     + Callback on list
     + Update previous 5 lists after changing or adding
     
-    ![](media/example_buylist.gif)
+    ![](media/example_buylist.png)
 
 + Cleaning reminder 
     + /nextcleaning
     + /setbuilding
     + /setreminder
     + /schedule
-
+    
+    ![](media/example_cleaning.png)
     ![](media/cleaning_module_example.gif)
 
 + Default module
