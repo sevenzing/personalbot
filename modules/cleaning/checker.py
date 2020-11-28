@@ -1,9 +1,10 @@
 import asyncio
 from aiogram import Dispatcher
-from aiogram.utils.exceptions import ChatNotFound
+from aiogram.utils.exceptions import ChatNotFound, BotBlocked
 import logging
 import datetime
 from itertools import chain, cycle
+from typing import List
 
 from modules.common.constants import BEFORE_CLEANING, ON_CLEANING
 from modules.database.models import UserModel
@@ -26,8 +27,8 @@ async def check_time(dp: Dispatcher):
     current_building = get_current_building(now)
     next_day_building = get_current_building(get_next_day(now))
     
-    users_today = UserModel.find({'checknotice': True, 'chosenbuilding': current_building})
-    users_next_day = UserModel.find({'checknotice': True, 'chosenbuilding': next_day_building})
+    users_today: List[UserModel] = UserModel.find({'checknotice': True, 'chosenbuilding': current_building})
+    users_next_day: List[UserModel] = UserModel.find({'checknotice': True, 'chosenbuilding': next_day_building})
     for user, on_day in chain(
         zip(users_next_day, cycle([BEFORE_CLEANING])),
         zip(users_today, cycle([ON_CLEANING])),
@@ -59,6 +60,8 @@ async def check_time(dp: Dispatcher):
                 user.update(lastnotice=user.lastnotice)
             except ChatNotFound as e:
                 logging.error(e)
+            except BotBlocked as e:
+                user.delete()
         else:
             logging.debug(f"Skip notice for {user.chat_id}")
 
