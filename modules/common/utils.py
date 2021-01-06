@@ -17,7 +17,7 @@ def get_current_building(date: datetime.datetime) -> int:
     if day_number not in [1, 3, 5]:
         return -1
     
-    order = [1, 4, 2, 3]
+    order = [3, 1, 4, 2]
     return order[(order.index((order[2:4][::-1] + order[0:2][::-1])[(week_number - 1) % 4]) + (day_number - 1) // 2) % 4]
 
 def get_next_cleaning_day(building_number: int) -> datetime.datetime:
