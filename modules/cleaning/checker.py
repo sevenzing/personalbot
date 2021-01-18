@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import Dispatcher
-from aiogram.utils.exceptions import ChatNotFound, BotBlocked
+from aiogram.utils.exceptions import ChatNotFound, BotBlocked, UserDeactivated
 import logging
 import datetime
 from itertools import chain, cycle
@@ -55,12 +55,11 @@ async def check_time(dp: Dispatcher):
                     messages.CLEANING_NOTIFICATION % 
                         ('today' if on_day == ON_CLEANING else 'tomorrow')
                     )
-                
                 user.lastnotice[on_day] = get_next_day(now)
                 user.update(lastnotice=user.lastnotice)
             except ChatNotFound as e:
                 logging.error(e)
-            except BotBlocked as e:
+            except (BotBlocked, UserDeactivated) as e:
                 user.delete()
         else:
             logging.debug(f"Skip notice for {user.chat_id}")
