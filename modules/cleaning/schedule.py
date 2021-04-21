@@ -17,7 +17,7 @@ def __extract_url_from_hotel_innopolis(url_to_site='https://hotel.innopolis.univ
     soup = __get_page_soup(url_to_site)
     links = soup.find_all('a', href=re.compile('.*docs\.google\.com.*'))
     if links:
-        return links[0]['href']
+        return links[1]['href']
 
     
 def __get_page_content(url) -> str:
