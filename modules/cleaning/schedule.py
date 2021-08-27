@@ -14,6 +14,7 @@ async def cmd_schedule(message: types.Message):
     await message.answer(link_to_schedule or 'Error. Cannot fetch schedule')
 
 def __extract_url_from_hotel_innopolis(url_to_site='https://hotel.innopolis.university/studentaccommodation/#block884'):
+    return 'https://docs.google.com/spreadsheets/d/1XU7DGa7cgyI30v8XeN2mo9MktDSYuoZ4p3m9ixvxbd8'
     soup = __get_page_soup(url_to_site)
     links = soup.find_all('a', href=re.compile('.*docs\.google\.com.*'))
     if links:
